@@ -8,24 +8,26 @@ function func() {
          let myObj = JSON.parse(this.responseText);
          console.log(myObj);
          console.log(myObj.data);
-         let var1 = document.querySelectorAll(".id1");
-         let var2 = document.querySelectorAll(".id2");
-         let var3 = document.querySelectorAll(".id3");
-         let var4 = document.querySelectorAll(".id4");
-         let var5 = document.querySelectorAll("img");
-         let arr = myObj.data;
-
-         for (let i = 0; i < arr.length; i++) {
-            var1[i].innerHTML = arr[i].id;
-            var2[i].innerHTML = arr[i].email;
-            var3[i].innerHTML = arr[i].first_name;
-            var4[i].innerHTML = arr[i].last_name;
-            var5[i].src = arr[i].avatar;
+         
+         var tabble = document.getElementById("bat");
+         tabble.innerHTML = "<tr><th>id</th><th>email</th><th>firstname</th><th>lastname</th><th>avatar</th></tr>";
+         var userdata = myObj.data;
+         for(i in userdata){
+           var p1 = userdata[i].id;
+           var p2 = userdata[i].email;
+           var p3 = userdata[i].first_name;
+           var p4 = userdata[i].last_name;
+           var p5 = userdata[i].avatar;
+           tabble.innerHTML+= "<tr><td>"+p1+"</td><td>"+p2+"</td><td>"+p3+"</td><td>"+p4+"</td><td><img src="+p5+"></td></tr>";
          }
 
+      }else if(this.readyState==4 && this.status == 400){
+         tabble.innerHTML = "Bad Request";
+      }
+      else if(this.readyState==4 && this.status == 404){
+         tabble.innerHTML = "Error 404! Not found";
       }
    }
    
    document.getElementById("bat").classList.remove("tab");
 }
-
